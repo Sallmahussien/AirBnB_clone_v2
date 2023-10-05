@@ -13,37 +13,27 @@ def do_deploy(archive_path):
     if not os.path.exists(archive_path):
         return False
 
-    opt = put("{:s}".format(archive_path), "/tmp/")
-    if opt.failed:
-        return False
+    try:
+        put("{:s}".format(archive_path), "/tmp/")
 
-    new_release_dir = "/data/web_static/releases/" + \
-                      os.path.basename(archive_path).split('.')[0] + '/'
-    opt = run('mkdir -p {:s}'.format(new_release_dir))
-    if opt.failed:
-        return False
+        new_release_dir = "/data/web_static/releases/" + \
+                          os.path.basename(archive_path).split('.')[0] + '/'
+        run('mkdir -p {:s}'.format(new_release_dir))
 
-    archived_file = os.path.basename(archive_path)
-    opt = run('sudo tar -xzf /tmp/{:s} -C {:s}'
-              .format(archived_file, new_release_dir))
-    if opt.failed:
-        return False
+        archived_file = os.path.basename(archive_path)
+        run('sudo tar -xzf /tmp/{:s} -C {:s}'
+            .format(archived_file, new_release_dir))
 
-    opt = run('sudo mv {:s}web_static/* {:s}'
-              .format(new_release_dir, new_release_dir))
-    if opt.failed:
-        return False
+        run('sudo mv {:s}web_static/* {:s}'
+            .format(new_release_dir, new_release_dir))
 
-    opt = run('sudo rm -rf /tmp/{:s}'.format(archive_path))
-    if opt.failed:
-        return False
+        run('sudo rm -rf /tmp/{:s}'.format(archived_file))
 
-    opt = run('sudo rm -rf /data/web_static/current')
-    if opt.failed:
-        return False
+        run('sudo rm -rf /data/web_static/current')
 
-    opt = run('ln -sf {:s} /data/web_static/current'.format(new_release_dir))
-    if opt.failed:
-        return False
+        run('ln -sf {:s} /data/web_static/current'.format(new_release_dir))
 
-    return True
+        return True
+
+    except Exception:
+        return False
