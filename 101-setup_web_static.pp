@@ -48,23 +48,33 @@ exec { 'apt update':
 }
 
 -> file { 'data'
-  ensure => 'directory',
+  ensure  => 'directory',
+  owner   => 'ubuntu',
+  group   => 'ubuntu',
 }
 
 -> file { '/data/web_static/'
-  ensure => 'directory',
+  ensure  => 'directory',
+  owner   => 'ubuntu',
+  group   => 'ubuntu',
 }
 
 -> file { '/data/web_static/releases/'
   ensure => 'directory',
+  owner   => 'ubuntu',
+  group   => 'ubuntu',
 }
 
 -> file { '/data/web_static/shared/'
   ensure => 'directory',
+  owner   => 'ubuntu',
+  group   => 'ubuntu',
 }
 
 -> file { '/data/web_static/releases/test/'
   ensure => 'directory',
+  owner   => 'ubuntu',
+  group   => 'ubuntu',
 }
 
 -> file { '/data/web_static/releases/test/index.html'
@@ -77,15 +87,15 @@ exec { 'apt update':
       Holberton School
     </body>
   </html>',
+  owner   => 'ubuntu',
+  group   => 'ubuntu',
 }
 
 -> file { '/data/web_static/current':
   ensure => 'link',
-  target => '/data/web_static/releases/test'
-}
-
--> exec { 'chown -R ubuntu:ubuntu /data/':
-  path => '/usr/bin/:/usr/local/bin/:/bin/'
+  target => '/data/web_static/releases/test',
+  owner  => 'ubuntu',
+  group  => 'ubuntu',
 }
 
 -> file { '/var/www':
