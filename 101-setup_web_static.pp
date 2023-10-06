@@ -99,31 +99,44 @@ exec { 'apt update':
 }
 
 -> file { '/var/www':
-  ensure => 'directory'
+  ensure  => 'directory',
+  require => Package['nginx'],
+  notify  => Service['nginx'],
 }
 
 -> file { '/var/www/html':
-  ensure => 'directory'
+  ensure  => 'directory',
+  require => Package['nginx'],
+  notify  => Service['nginx'],
 }
 
 -> file { '/var/www/html/index.html':
   ensure  => 'present',
-  content => "Hello World!\n"
+  content => "Hello World!\n",
+  require => Package['nginx'],
+  notify  => Service['nginx'],
+  replace => 'true',
 }
 
 -> file { '/var/www/html/404.html':
   ensure  => 'present',
-  content => "Ceci n'est pas une page\n"
+  content => "Ceci n'est pas une page\n",
+  require => Package['nginx'],
+  notify  => Service['nginx'],
+  replace => 'true',
 }
 
 -> file { '/etc/nginx/sites-available/default':
   ensure  => 'present',
-  content => $nginx_conf
+  content => $nginx_config,
+  require => Package['nginx'],
+  notify  => Service['nginx'],
+  replace => 'true',
 }
 
 # Restart Nginx
 -> service { 'nginx':
   ensure  => running,
   enable  => true,
-  require => [Package['nginx'], File['/etc/nginx/conf.d/custom-header.conf']],
+  require => [Package['nginx'], File['/etc/nginx/sites-available/default']],
 }
