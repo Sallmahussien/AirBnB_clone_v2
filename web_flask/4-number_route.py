@@ -37,10 +37,7 @@ def print_python_path(username):
 @app.route("/number/<int:n>", strict_slashes=False)
 def print_integer(n):
     """Display number if it is integer"""
-    try:
-        return f"{n} is a number"
-    except ValueError:
-        pass
+    return f"{n} is a number"
 
 
 if __name__ == "__main__":
