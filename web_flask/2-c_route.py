@@ -21,7 +21,7 @@ def hbnb():
 @app.route("/c/<username>", strict_slashes=False)
 def print_path(username):
     """Display Path"""
-    return "C {}".format(username.replace("_", ""))
+    return "C {}".format(username.replace("_", " "))
 
 
 if __name__ == "__main__":
