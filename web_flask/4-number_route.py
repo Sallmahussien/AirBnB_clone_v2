@@ -34,11 +34,11 @@ def print_python_path(username):
     return "Python {}".format(username.replace("_", " "))
 
 
-@app.route("/number/<n>", strict_slashes=False)
+@app.route("/number/<int:n>", strict_slashes=False)
 def print_integer(n):
     """Display number if it is integer"""
     try:
-        return "{} is a number".format(int(n))
+        return f"{n} is a number"
     except ValueError:
         pass
 
