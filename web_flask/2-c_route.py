@@ -18,10 +18,10 @@ def hbnb():
     return "HBNB"
 
 
-@app.route("/c/<username>", strict_slashes=False)
-def print_path(username):
+@app.route("/c/<text>", strict_slashes=False)
+def print_path(text):
     """Display Path"""
-    return "C {}".format(username.replace("_", " "))
+    return "C {}".format(text.replace("_", " "))
 
 
 if __name__ == "__main__":

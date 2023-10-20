@@ -24,14 +24,14 @@ def print_c_path(username):
     return "C {}".format(username.replace("_", " "))
 
 
-@app.route("/python/", defaults={"username": ""}, strict_slashes=False)
-@app.route("/python/<username>", strict_slashes=False)
-def print_python_path(username):
+@app.route("/python/", defaults={"text": ""}, strict_slashes=False)
+@app.route("/python/<text>", strict_slashes=False)
+def print_python_path(text):
     """Display Python Path"""
-    if username == "":
+    if text == "":
         return "Python is cool"
 
-    return "Python {}".format(username.replace("_", " "))
+    return "Python {}".format(text.replace("_", " "))
 
 
 if __name__ == "__main__":
