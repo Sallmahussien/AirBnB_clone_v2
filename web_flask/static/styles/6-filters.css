@@ -57,6 +57,7 @@
 .filters .locations:hover ul.popover,
 .filters .amenities:hover ul.popover {
   display: block;
+  z-index: 1000;
 }
 
 .filters .locations ul.popover li,
